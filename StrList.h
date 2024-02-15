@@ -19,7 +19,7 @@
  * StrList represents a StrList data structure.
  */
 typedef struct _StrList {
-    char *str;
+    char *data;
     struct _StrList *next;
 } StrList;
 StrList* StrList_alloc();
