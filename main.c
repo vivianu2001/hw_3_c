@@ -5,7 +5,7 @@
 
 int main() {
     StrList* list = StrList_alloc();
-    char int;
+    int option;
     int index;
     char buffer[100];
     int numWords;
@@ -27,7 +27,7 @@ int main() {
         printf("13- Check whether the list is arranged according to lexicographic order.\n");
         printf("0- Exit the program.\n");
         printf("Choose an option: ");
-        scanf(" %c", &option);
+        scanf(" %d", &option);
         
         switch(option) {
             case 1: // Insert strings into the list
