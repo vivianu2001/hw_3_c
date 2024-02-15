@@ -60,9 +60,20 @@ void StrList_insertAt(StrList** StrList, const char* data, int index) {
         return;
     }
 
+    StrList* newNode = (StrList*)malloc(sizeof(StrList));
+    if (newNode == NULL) {
+        fprintf(stderr, "Memory allocation failed in StrList_insertAt()\n");
+        exit(EXIT_FAILURE);
+    }
+    newNode->data = strdup(data);
+    newNode->next = NULL;
+
+    if (*StrList == NULL) {
+        *StrList = newNode;
+        return;
+    }
+
     if (index == 0) {
-        StrList* newNode = (StrList*)malloc(sizeof(*newNode));
-        newNode->data = strdup(data);
         newNode->next = *StrList;
         *StrList = newNode;
         return;
@@ -70,17 +81,10 @@ void StrList_insertAt(StrList** StrList, const char* data, int index) {
 
     StrList* current = *StrList;
     int i;
-    for (i = 0; i < index - 1 && current != NULL; i++) {
+    for (i = 0; i < index - 1 && current->next != NULL; i++) {
         current = current->next;
     }
 
-    if (current == NULL) {
-        printf("Index out of bounds.\n");
-        return;
-    }
-
-    StrList* newNode = (StrList*)malloc(sizeof(StrList));
-    newNode->data = strdup(data);
     newNode->next = current->next;
     current->next = newNode;
 }
@@ -149,11 +153,10 @@ void StrList_remove(StrList** StrList, const char* data) {
             }
             free(current->data);
             free(current);
-            current = prev == NULL ? *StrList : prev->next;
-        } else {
-            prev = current;
-            current = current->next;
+            return;
         }
+        prev = current;
+        current = current->next;
     }
 }
 
@@ -166,7 +169,7 @@ void StrList_removeAt(StrList** StrList, int index) {
     StrList* current = *StrList;
     StrList* prev = NULL;
     int i;
-    for (i = 0; i < index && current != NULL; i++) {
+    for (i = 0; current != NULL && i < index; i++) {
         prev = current;
         current = current->next;
     }
@@ -181,6 +184,7 @@ void StrList_removeAt(StrList** StrList, int index) {
     } else {
         prev->next = current->next;
     }
+
     free(current->data);
     free(current);
 }
@@ -232,10 +236,9 @@ void StrList_reverse(StrList** StrList) {
 }
 
 void StrList_sort(StrList** StrList) {
-    // Bubble Sort for simplicity
     int swapped;
-    StrList* ptr1;
-    StrList* lptr = NULL;
+    StrList *ptr1;
+    StrList *lptr = NULL;
 
     if (*StrList == NULL)
         return;
