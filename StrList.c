@@ -20,8 +20,8 @@ StrList* StrList_alloc() {
 }
 
 
-void StrList_free(StrList* StrList) {
-    StrList* current = StrList;
+void StrList_free(StrList* list) {
+    StrList* current = list;
     while (current != NULL) {
         StrList* next = current->next;
         free(current->data);
@@ -30,9 +30,9 @@ void StrList_free(StrList* StrList) {
     }
 }
 
-size_t StrList_size(const StrList* StrList) {
+size_t StrList_size(const StrList* list) {
     size_t size = 0;
-    const StrList* current = StrList;
+    const StrList* current = list;
     while (current != NULL) {
         size++;
         current = current->next;
@@ -40,24 +40,24 @@ size_t StrList_size(const StrList* StrList) {
     return size;
 }
 
-void StrList_insertLast(StrList** StrList, const char* data) {
+void StrList_insertLast(StrList** list, const char* data) {
     StrList* newNode = (StrList*)malloc(sizeof(*newNode));
     newNode->data = strdup(data);
     newNode->next = NULL;
 
-    if (*StrList == NULL) {
-        *StrList = newNode;
+    if (*list == NULL) {
+        *list = newNode;
         return;
     }
 
-    StrList* current = *StrList;
+    StrList* current = *list;
     while (current->next != NULL) {
         current = current->next;
     }
     current->next = newNode;
 }
 
-void StrList_insertAt(StrList** StrList, const char* data, int index) {
+void StrList_insertAt(StrList** list, const char* data, int index) {
     if (index < 0) {
         printf("Index cannot be negative.\n");
         return;
@@ -71,18 +71,18 @@ void StrList_insertAt(StrList** StrList, const char* data, int index) {
     newNode->data = strdup(data);
     newNode->next = NULL;
 
-    if (*StrList == NULL) {
-        *StrList = newNode;
+    if (*list == NULL) {
+        *list = newNode;
         return;
     }
 
     if (index == 0) {
-        newNode->next = *StrList;
-        *StrList = newNode;
+        newNode->next = *list;
+        *list = newNode;
         return;
     }
 
-    StrList* current = *StrList;
+    StrList* current = *list;
     int i;
     for (i = 0; i < index - 1 && current->next != NULL; i++) {
         current = current->next;
@@ -92,15 +92,15 @@ void StrList_insertAt(StrList** StrList, const char* data, int index) {
     current->next = newNode;
 }
 
-char* StrList_firstData(const StrList* StrList) {
-    if (StrList == NULL) {
+char* StrList_firstData(const StrList* list) {
+    if (list == NULL) {
         return NULL;
     }
-    return StrList->data;
+    return list->data;
 }
 
-void StrList_print(const StrList* StrList) {
-    const StrList* current = StrList;
+void StrList_print(const StrList* list) {
+    const StrList* current = list;
     while (current != NULL) {
         printf("%s ", current->data);
         current = current->next;
@@ -108,8 +108,8 @@ void StrList_print(const StrList* StrList) {
     printf("\n");
 }
 
-void StrList_printAt(const StrList* StrList, int index) {
-    const StrList* current = StrList;
+void StrList_printAt(const StrList* list, int index) {
+    const StrList* current = list;
     int i;
     for (i = 0; i < index && current != NULL; i++) {
         current = current->next;
@@ -121,9 +121,9 @@ void StrList_printAt(const StrList* StrList, int index) {
     }
 }
 
-int StrList_printLen(const StrList* StrList) {
+int StrList_printLen(const StrList* list) {
     int len = 0;
-    const StrList* current = StrList;
+    const StrList* current = list;
     while (current != NULL) {
         len += strlen(current->data);
         current = current->next;
@@ -131,9 +131,9 @@ int StrList_printLen(const StrList* StrList) {
     return len;
 }
 
-int StrList_count(StrList* StrList, const char* data) {
+int StrList_count(StrList* list, const char* data) {
     int count = 0;
-    StrList* current = StrList;
+    StrList* current = list;
     while (current != NULL) {
         if (strcmp(current->data, data) == 0) {
             count++;
@@ -143,14 +143,14 @@ int StrList_count(StrList* StrList, const char* data) {
     return count;
 }
 
-void StrList_remove(StrList** StrList, const char* data) {
-    StrList* current = *StrList;
+void StrList_remove(StrList** list, const char* data) {
+    StrList* current = *list;
     StrList* prev = NULL;
 
     while (current != NULL) {
         if (strcmp(current->data, data) == 0) {
             if (prev == NULL) {
-                *StrList = current->next;
+                *list = current->next;
             } else {
                 prev->next = current->next;
             }
@@ -163,13 +163,13 @@ void StrList_remove(StrList** StrList, const char* data) {
     }
 }
 
-void StrList_removeAt(StrList** StrList, int index) {
+void StrList_removeAt(StrList** list, int index) {
     if (index < 0) {
         printf("Index cannot be negative.\n");
         return;
     }
 
-    StrList* current = *StrList;
+    StrList* current = *list;
     StrList* prev = NULL;
     int i;
     for (i = 0; current != NULL && i < index; i++) {
@@ -183,7 +183,7 @@ void StrList_removeAt(StrList** StrList, int index) {
     }
 
     if (prev == NULL) {
-        *StrList = current->next;
+        *list = current->next;
     } else {
         prev->next = current->next;
     }
@@ -207,13 +207,13 @@ int StrList_isEqual(const StrList* StrList1, const StrList* StrList2) {
     return current1 == NULL && current2 == NULL;
 }
 
-StrList* StrList_clone(const StrList* StrList) {
-    if (StrList == NULL) {
+StrList* StrList_clone(const StrList* list) {
+    if (list == NULL) {
         return NULL;
     }
 
     StrList* clone = NULL;
-    const StrList* current = StrList;
+    const StrList* current = list;
 
     while (current != NULL) {
         StrList_insertLast(&clone, current->data);
@@ -223,9 +223,9 @@ StrList* StrList_clone(const StrList* StrList) {
     return clone;
 }
 
-void StrList_reverse(StrList** StrList) {
+void StrList_reverse(StrList** list) {
     StrList* prev = NULL;
-    StrList* current = *StrList;
+    StrList* current = *list;
     StrList* next = NULL;
 
     while (current != NULL) {
@@ -235,20 +235,20 @@ void StrList_reverse(StrList** StrList) {
         current = next;
     }
 
-    *StrList = prev;
+    *list = prev;
 }
 
-void StrList_sort(StrList** StrList) {
+void StrList_sort(StrList** list) {
     int swapped;
     StrList *ptr1;
     StrList *lptr = NULL;
 
-    if (*StrList == NULL)
+    if (*list == NULL)
         return;
 
     do {
         swapped = 0;
-        ptr1 = *StrList;
+        ptr1 = *list;
 
         while (ptr1->next != lptr) {
             if (strcmp(ptr1->data, ptr1->next->data) > 0) {
@@ -263,12 +263,12 @@ void StrList_sort(StrList** StrList) {
     } while (swapped);
 }
 
-int StrList_isSorted(StrList* StrList) {
-    while (StrList != NULL && StrList->next != NULL) {
-        if (strcmp(StrList->data, StrList->next->data) > 0) {
+int StrList_isSorted(StrList* list) {
+    while (list != NULL && list->next != NULL) {
+        if (strcmp(StrList->data, list->next->data) > 0) {
             return 0;
         }
-        StrList = StrList->next;
+        list = list->next;
     }
     return 1;
 }
