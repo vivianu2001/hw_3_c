@@ -1,4 +1,7 @@
 #include "StrList.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 
 StrList* StrList_alloc() {
