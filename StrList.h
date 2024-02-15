@@ -76,7 +76,7 @@ int StrList_count(StrList* list, const char* data);
 /*
 	Given a string and a list, remove all the appearences of this string in the list.
 */
-void StrList_remove(StrList** list, const char* data);
+void StrList_remove(StrList* list, const char* data);
 
 /*
 	Given an index and a list, remove the string at that index.
