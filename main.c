@@ -74,7 +74,7 @@ int main() {
             case 8: // Receive a string and delete all occurrences from the list
                 printf("Enter string to delete: ");
                 scanf("%s", buffer);
-                StrList_remove(list,data);
+                StrList_remove(list,buffer);
                 break;
             case 9: // Receive an index and delete the corresponding member
                 printf("Enter index to delete: ");
