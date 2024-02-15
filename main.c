@@ -40,7 +40,7 @@ int main() {
                 printf("Enter strings separated by space:\n");
                 for (int i = 0; i < numWords; i++) {
                     scanf("%s", buffer);
-                    StrList_insertLast(&list, buffer);
+                    StrList_insertLast(list, buffer);
                 }
                 break;
             case '2': // Insert a string at a certain index
