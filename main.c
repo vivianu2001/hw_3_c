@@ -48,7 +48,7 @@ int main() {
                 scanf("%d", &index);
                 printf("Enter string: ");
                 scanf("%s", buffer);
-                StrList_insertAt(&list, buffer, index);
+                StrList_insertAt(list, buffer, index);
                 break;
             case '3': // Print the list
                 printf("List: ");
@@ -74,15 +74,15 @@ int main() {
             case '8': // Receive a string and delete all occurrences from the list
                 printf("Enter string to delete: ");
                 scanf("%s", buffer);
-                StrList_remove(&list, buffer);
+                StrList_remove(list, buffer);
                 break;
             case '9': // Receive an index and delete the corresponding member
                 printf("Enter index to delete: ");
                 scanf("%d", &index);
-                StrList_removeAt(&list, index);
+                StrList_removeAt(list, index);
                 break;
             case '10': // Reverse the list
-                StrList_reverse(&list);
+                StrList_reverse(list);
                 printf("List reversed.\n");
                 break;
             case '11': // Delete the entire list
@@ -91,7 +91,7 @@ int main() {
                 printf("List deleted.\n");
                 break;
             case '12': // Sort the list in lexicographical order
-                StrList_sort(&list);
+                StrList_sort(list);
                 printf("List sorted.\n");
                 break;
             case '13': // Check whether the list is arranged according to lexicographic order
