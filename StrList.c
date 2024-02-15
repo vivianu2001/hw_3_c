@@ -1,8 +1,5 @@
 #include "StrList.h"
 
-/*
- * Your implementation of the functions declared in StrList.h goes here.
- */
 
 StrList* StrList_alloc() {
     return NULL;
