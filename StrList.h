@@ -40,8 +40,7 @@ size_t StrList_size(const StrList* list);
 /*
  * Inserts an element in the end of the StrList.
  */
-void StrList_insertLast(StrList* list,
-					  const char* data);
+void StrList_insertLast(StrList* list,const char* data);
 
 /*
 * Inserts an element at given index
