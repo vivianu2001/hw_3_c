@@ -18,14 +18,13 @@
 /*
  * StrList represents a StrList data structure.
  */
-struct _StrList;
-typedef struct _StrList StrList;
-
-/*
- * Allocates a new empty StrList.
- * It's the user responsibility to free it with StrList_free.
- */
+typedef struct _StrList {
+    char *str;
+    struct _StrList *next;
+} StrList;
 StrList* StrList_alloc();
+
+
 
 /*
  * Frees the memory and resources allocated to StrList.
