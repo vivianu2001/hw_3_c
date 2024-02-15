@@ -156,7 +156,7 @@ void StrList_remove(StrList* list, const char* data) {
     while (current != NULL) {
         if (strcmp(current->data, data) == 0) {
             if (prev == NULL) {
-                *list = current->next;
+                list = current->next;
             } else {
                 prev->next = current->next;
             }
