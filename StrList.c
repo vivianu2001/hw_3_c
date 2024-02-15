@@ -149,14 +149,14 @@ int StrList_count(StrList* list, const char* data) {
     return count;
 }
 
-void StrList_remove(StrList* list, const char* data) {
-    StrList* current = list;
+void StrList_remove(StrList** list, const char* data) {
+    StrList* current = *list;
     StrList* prev = NULL;
 
     while (current != NULL) {
         if (strcmp(current->data, data) == 0) {
             if (prev == NULL) {
-                list = current->next;
+                *list = current->next;
             } else {
                 prev->next = current->next;
             }
@@ -168,6 +168,7 @@ void StrList_remove(StrList* list, const char* data) {
         current = current->next;
     }
 }
+
 
 void StrList_removeAt(StrList* list, int index) {
     if (index < 0) {
