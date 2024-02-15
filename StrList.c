@@ -149,8 +149,8 @@ int StrList_count(StrList* list, const char* data) {
     return count;
 }
 
-void StrList_remove(StrList** list, const char* data) {
-    StrList* current = *list;
+void StrList_remove(StrList* list, const char* data) {
+    StrList* current = list;
     StrList* prev = NULL;
 
     while (current != NULL) {
