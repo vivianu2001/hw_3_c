@@ -6,7 +6,7 @@
 
 StrList* StrList_alloc() {
     // Allocate memory for a new StrList structure
-    StrList* newList = (StrList*)malloc(sizeof(*newList));
+    StrList* newList = (StrList*)malloc(sizeof(strList));
     if (newList == NULL) {
         // Handle memory allocation failure
         // For example, you can print an error message and exit the program
