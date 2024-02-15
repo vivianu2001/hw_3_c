@@ -2,8 +2,20 @@
 
 
 StrList* StrList_alloc() {
-    return NULL;
+    // Allocate memory for a new StrList structure
+    StrList* newList = (StrList*)malloc(sizeof(StrList));
+    if (newList == NULL) {
+        // Handle memory allocation failure
+        // For example, you can print an error message and exit the program
+        fprintf(stderr, "Memory allocation failed in StrList_alloc()\n");
+        exit(EXIT_FAILURE);
+    }
+    // Initialize the newly allocated StrList structure as needed
+    newList->data = NULL;
+    newList->next = NULL;
+    return newList;
 }
+
 
 void StrList_free(StrList* StrList) {
     StrList* current = StrList;
