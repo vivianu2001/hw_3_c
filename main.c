@@ -94,6 +94,7 @@ int main() {
             case 11: // Delete the entire list
                 StrList_free(&list_sentinel);
                 printf("List deleted.\n");
+                list_sentinel.next=NULL;
                 break;
             case 12: // Sort the list in lexicographical order
                 StrList_sort(&list_sentinel);
