@@ -236,10 +236,6 @@ void StrList_reverse(StrList* head) {
         return;
     }
 
-    // Create a dummy node and point it to the head of the list
-    StrList dummy;
-    dummy.next = head;
-
     StrList* prev = NULL;
     StrList* current = head;
     StrList* next = NULL;
@@ -251,11 +247,11 @@ void StrList_reverse(StrList* head) {
         current = next;
     }
 
-    // Update the head pointer to point to the new head of the reversed list
-    // The new head of the list is the last node processed
-    head->next = NULL; // Set the original head's next pointer to NULL
-    head = prev; // Update the head pointer to point to the new head
+    // After the loop, 'prev' will point to the new head of the reversed list
+    // Update the head pointer to point to 'prev'
+    head = prev;
 }
+
 
 
 
