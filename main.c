@@ -83,7 +83,6 @@ int main() {
                 break;
             case 10: // Reverse the list
                 StrList_reverse(list);
-                 list = list->next;
                 printf("List reversed.\n");
                 break;
             case 11: // Delete the entire list
