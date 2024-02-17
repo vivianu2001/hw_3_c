@@ -19,14 +19,17 @@ StrList* StrList_alloc() {
 }
 
 void StrList_free(StrList* list) {
-    StrList* current = list;
+    StrList* current = list->next; // Start from the first node after the sentinel
     while (current != NULL) {
         StrList* next = current->next;
         free(current->data);
         free(current);
         current = next;
     }
+    // Free the sentinel node separately if needed
+    // free(list); // Uncomment this line if you dynamically allocated the sentinel node
 }
+
 
 size_t StrList_size(const StrList* list) {
     size_t size = 0;
@@ -243,17 +246,17 @@ void StrList_reverse(StrList* list) {
 
 
 
-void StrList_sort(StrList* head) {
+void StrList_sort(StrList* list) {
     StrList *ptr1;
     StrList *lptr = NULL;
     int swapped;
 
-    if (head == NULL || head->next == NULL)
+    if (list == NULL || list->next == NULL)
         return;
 
     do {
         swapped = 0;
-        ptr1 = head->next; // Start from the first node after the sentinel
+        ptr1 = list->next; // Start from the first node after the sentinel
 
         while (ptr1->next != lptr) {
             if (strcmp(ptr1->data, ptr1->next->data) > 0) {
@@ -268,8 +271,8 @@ void StrList_sort(StrList* head) {
     } while (swapped);
 }
 
-int StrList_isSorted(const StrList* head) {
-    const StrList* current = head->next; // Start from the first node after the sentinel
+int StrList_isSorted(StrList* list) {
+    const StrList* current = list->next; // Start from the first node after the sentinel
 
     while (current != NULL && current->next != NULL) {
         if (strcmp(current->data, current->next->data) > 0) {
