@@ -41,24 +41,36 @@ size_t StrList_size(const StrList* list) {
     return size;
 }
 
-void StrList_insertLast(StrList* list, const char* data) {
+void StrList_insertAt(StrList* list, const char* data, int index) {
+    if (index < 0) {
+        printf("Index cannot be negative.\n");
+        return;
+    }
+
     StrList* newNode = (StrList*)malloc(sizeof(StrList));
     if (newNode == NULL) {
-        fprintf(stderr, "Memory allocation failed in StrList_insertLast()\n");
+        fprintf(stderr, "Memory allocation failed in StrList_insertAt()\n");
         exit(EXIT_FAILURE);
     }
     newNode->data = strdup(data);
     newNode->next = NULL;
 
-    // Traverse the list to find the last node
-    StrList* current = list;
-    while (current->next != NULL) {
+    StrList* current = list; // Start from the sentinel node
+    int i;
+    for (i = 0; i < index && current->next != NULL; i++) {
         current = current->next;
     }
 
-    // Insert the new node at the end
-    current->next = newNode;
+    // Handle insertion at index 0
+    if (i == 0) {
+        newNode->next = current->next;
+        current->next = newNode;
+    } else {
+        newNode->next = current->next;
+        current->next = newNode;
+    }
 }
+
 
 
 StrList* StrList_insertAt(StrList* list, const char* data, int index) {
