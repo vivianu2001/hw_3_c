@@ -83,8 +83,8 @@ void StrList_insertAt(StrList* list, const char* data, int index) {
     }
 
     if (index == 0) {
-        newNode->next = list->next;
-        list->next = newNode;
+        newNode->next = list;
+        list= newNode;
         return;
     }
 
