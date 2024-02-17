@@ -99,7 +99,7 @@ int main() {
                 }
                 break;
             case 0: // Exit the program
-                StrList_delete(&list_sentinel);
+                StrList_free(&list_sentinel);
                 return 0;
             default:
                 printf("Invalid option. Please choose a valid option.\n");
