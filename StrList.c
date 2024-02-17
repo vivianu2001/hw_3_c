@@ -231,6 +231,15 @@ StrList* StrList_clone(const StrList* list) {
 }
 
 void StrList_reverse(StrList* list) {
+    if (list == NULL || list->next == NULL) {
+        // If the list is empty or has only one element, no need to reverse
+        return;
+    }
+
+    // Create a dummy node and point it to the head of the list
+    StrList dummy;
+    dummy.next = list;
+
     StrList* prev = NULL;
     StrList* current = list;
     StrList* next = NULL;
@@ -242,8 +251,10 @@ void StrList_reverse(StrList* list) {
         current = next;
     }
 
-    list = prev;
+    // Update the dummy node's next pointer to the new head of the reversed list
+    dummy.next = prev;
 }
+
 
 void StrList_sort(StrList* list) {
     int swapped;
