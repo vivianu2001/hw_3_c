@@ -101,13 +101,14 @@ char* StrList_firstData(const StrList* list) {
 }
 
 void StrList_print(const StrList* list) {
-    const StrList* current = list;
+    const StrList* current = list->next; // Start from the first actual node
     while (current != NULL) {
         printf("%s ", current->data);
         current = current->next;
     }
     printf("\n");
 }
+
 
 void StrList_printAt(const StrList* list, int index) {
     const StrList* current = list;
