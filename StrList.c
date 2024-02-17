@@ -73,36 +73,6 @@ void StrList_insertAt(StrList* list, const char* data, int index) {
 
 
 
-StrList* StrList_insertAt(StrList* list, const char* data, int index) {
-    if (index < 0) {
-        printf("Index cannot be negative.\n");
-        return list; // Return the original head if index is negative
-    }
-
-    StrList* newNode = (StrList*)malloc(sizeof(StrList));
-    if (newNode == NULL) {
-        fprintf(stderr, "Memory allocation failed in StrList_insertAt()\n");
-        exit(EXIT_FAILURE);
-    }
-    newNode->data = strdup(data);
-    newNode->next = NULL;
-
-    if (index == 0) {
-        newNode->next = list;
-        return newNode; // Return the new head if inserting at index 0
-    }
-
-    StrList* current = list;
-    int i;
-    for (i = 0; i < index - 1 && current->next != NULL; i++) {
-        current = current->next;
-    }
-
-    newNode->next = current->next;
-    current->next = newNode;
-    return list; // Return the original head if inserting at other indexes
-}
-
 
 char* StrList_firstData(const StrList* list) {
     if (list == NULL) {
