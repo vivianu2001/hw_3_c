@@ -224,17 +224,11 @@ StrList* StrList_clone(const StrList* list) {
     return clone;
 }
 
-void StrList_reverse(StrList* head) {
-    if (head == NULL || head->next == NULL) {
-        // If the list is empty or has only one element, no need to reverse
-        return;
-    }
-
+void StrList_reverse(StrList* list) {
     StrList* prev = NULL;
-    StrList* current = head;
+    StrList* current = list->next; // Skip the sentinel node
     StrList* next = NULL;
 
-    // Reverse the list
     while (current != NULL) {
         next = current->next;
         current->next = prev;
@@ -242,13 +236,10 @@ void StrList_reverse(StrList* head) {
         current = next;
     }
 
-    // Update the list in reverse order
-    while (prev != NULL) {
-        head->data = prev->data;
-        prev = prev->next;
-        head = head->next;
-    }
+    // Update the link of the sentinel node to point to the new first node
+    list->next = prev;
 }
+
 
 
 
