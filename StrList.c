@@ -240,6 +240,7 @@ void StrList_reverse(StrList* head) {
     StrList* current = head;
     StrList* next = NULL;
 
+    // Reverse the list
     while (current != NULL) {
         next = current->next;
         current->next = prev;
@@ -247,9 +248,12 @@ void StrList_reverse(StrList* head) {
         current = next;
     }
 
-    // After the loop, 'prev' will point to the new head of the reversed list
-    // Update the head pointer to point to 'prev'
-    head = prev;
+    // Update the list in reverse order
+    while (prev != NULL) {
+        head->data = prev->data;
+        prev = prev->next;
+        head = head->next;
+    }
 }
 
 
