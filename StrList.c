@@ -30,7 +30,7 @@ void StrList_free(StrList* list) {
 
 size_t StrList_size(const StrList* list) {
     size_t size = 0;
-    const StrList* current = list;
+    const StrList* current = list->next;
     while (current != NULL) {
         size++;
         current = current->next;
@@ -48,7 +48,7 @@ void StrList_insertLast(StrList* list, const char* data) {
     newNode->next = NULL;
 
     // Traverse the list to find the last node
-    StrList* current = list;
+    StrList* current = list->next;
     while (current->next != NULL) {
         current = current->next;
     }
@@ -111,7 +111,7 @@ void StrList_print(const StrList* list) {
 
 
 void StrList_printAt(const StrList* list, int index) {
-    const StrList* current = list;
+    const StrList* current = list->next;
     int i;
     for (i = 0; i < index && current != NULL; i++) {
         current = current->next;
@@ -125,7 +125,7 @@ void StrList_printAt(const StrList* list, int index) {
 
 int StrList_printLen(const StrList* list) {
     int len = 0;
-    const StrList* current = list;
+    const StrList* current = list->next;
     while (current != NULL) {
         len += strlen(current->data);
         current = current->next;
@@ -135,7 +135,7 @@ int StrList_printLen(const StrList* list) {
 
 int StrList_count(StrList* list, const char* data) {
     int count = 0;
-    StrList* current = list;
+    StrList* current = list->next;
     while (current != NULL) {
         if (strcmp(current->data, data) == 0) {
             count++;
@@ -146,24 +146,22 @@ int StrList_count(StrList* list, const char* data) {
 }
 
 void StrList_remove(StrList* list, const char* data) {
-    StrList* current = list;
-    StrList* prev = NULL;
+    StrList* current = list->next; // Start from the first actual node
+    StrList* prev = list; // Keep track of the previous node
 
     while (current != NULL) {
         if (strcmp(current->data, data) == 0) {
-            if (prev == NULL) {
-                list = current->next;
-            } else {
-                prev->next = current->next;
-            }
-            free(current->data);
-            free(current);
-            return;
+            prev->next = current->next; // Update the link of the previous node
+            free(current->data); // Free the data of the current node
+            free(current); // Free the current node
+            current = prev->next; // Move to the next node
+        } else {
+            prev = current; // Move to the next node
+            current = current->next;
         }
-        prev = current;
-        current = current->next;
     }
 }
+
 
 
 void StrList_removeAt(StrList* list, int index) {
