@@ -243,18 +243,17 @@ void StrList_reverse(StrList* list) {
 
 
 
-
-void StrList_sort(StrList* list) {
-    int swapped;
+void StrList_sort(StrList* head) {
     StrList *ptr1;
     StrList *lptr = NULL;
+    int swapped;
 
-    if (list == NULL)
+    if (head == NULL || head->next == NULL)
         return;
 
     do {
         swapped = 0;
-        ptr1 = list;
+        ptr1 = head->next; // Start from the first node after the sentinel
 
         while (ptr1->next != lptr) {
             if (strcmp(ptr1->data, ptr1->next->data) > 0) {
@@ -269,12 +268,15 @@ void StrList_sort(StrList* list) {
     } while (swapped);
 }
 
-int StrList_isSorted(StrList* list) {
-    while (list != NULL && list->next != NULL) {
-        if (strcmp(list->data, list->next->data) > 0) {
+int StrList_isSorted(const StrList* head) {
+    const StrList* current = head->next; // Start from the first node after the sentinel
+
+    while (current != NULL && current->next != NULL) {
+        if (strcmp(current->data, current->next->data) > 0) {
             return 0;
         }
-        list = list->next;
+        current = current->next;
     }
     return 1;
 }
+
