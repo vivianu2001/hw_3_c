@@ -39,29 +39,24 @@ size_t StrList_size(const StrList* list) {
 }
 
 void StrList_insertLast(StrList* list, const char* data) {
-    StrList* newNode = (StrList*)malloc(sizeof(*newNode));
+    StrList* newNode = (StrList*)malloc(sizeof(StrList));
+    if (newNode == NULL) {
+        fprintf(stderr, "Memory allocation failed in StrList_insertLast()\n");
+        exit(EXIT_FAILURE);
+    }
     newNode->data = strdup(data);
     newNode->next = NULL;
 
-    if (list == NULL) {
-        fprintf(stderr, "Invalid list provided to StrList_insertLast()\n");
-        exit(EXIT_FAILURE);
-    }
-
-    if (list->data == NULL) {
-        // The list is empty, so the new node becomes the head of the list
-        list->data = newNode->data;
-        list->next = newNode->next;
-        free(newNode);
-        return;
-    }
-
+    // Traverse the list to find the last node
     StrList* current = list;
     while (current->next != NULL) {
         current = current->next;
     }
+
+    // Insert the new node at the end
     current->next = newNode;
 }
+
 
 void StrList_insertAt(StrList* list, const char* data, int index) {
     if (index < 0) {
