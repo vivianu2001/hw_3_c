@@ -48,7 +48,7 @@ void StrList_insertLast(StrList* list, const char* data) {
     newNode->next = NULL;
 
     // Traverse the list to find the last node
-    StrList* current = list->next;
+    StrList* current = list;
     while (current->next != NULL) {
         current = current->next;
     }
