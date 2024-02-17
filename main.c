@@ -32,15 +32,23 @@ int main() {
         scanf(" %d", &option);
         
         switch(option) {
-            case 1: // Insert strings into the list
-                printf("Enter number of words: ");
-                scanf("%d", &numWords);
-                printf("Enter strings separated by space:\n");
-                for (int i = 0; i < numWords; i++) {
-                    scanf("%s", buffer);
-                    StrList_insertLast(&list_sentinel, buffer);
-                }
-                break;
+    case 1: // Insert strings into the list
+        printf("Press 'A' to enter strings into the list: ");
+        char choice;
+        scanf(" %c", &choice);
+        if (choice != 'A') {
+            printf("Invalid choice.\n");
+            break;
+        }
+        printf("Enter number of words: ");
+        scanf("%d", &numWords);
+        printf("Enter strings separated by space:\n");
+        for (int i = 0; i < numWords; i++) {
+            scanf("%s", buffer);
+            StrList_insertLast(&list_sentinel, buffer);
+        }
+        break;
+
             case 2: // Insert a string at a certain index
                 printf("Enter index: ");
                 scanf("%d", &index);
