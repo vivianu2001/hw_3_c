@@ -19,16 +19,16 @@ StrList* StrList_alloc() {
 }
 
 void StrList_free(StrList* list) {
-    StrList* current = list->next; // Start from the first node after the sentinel
+    StrList* current = list->next; // Skip the sentinel node
     while (current != NULL) {
         StrList* next = current->next;
         free(current->data);
         free(current);
         current = next;
     }
-    // Free the sentinel node separately if needed
-    // free(list); // Uncomment this line if you dynamically allocated the sentinel node
+    list->next = NULL; // Reset the list after freeing all nodes
 }
+
 
 
 size_t StrList_size(const StrList* list) {
