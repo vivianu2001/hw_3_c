@@ -84,7 +84,7 @@ int main() {
                 printf("List reversed.\n");
                 break;
             case 11: // Delete the entire list
-                StrList_delete(&list_sentinel);
+                StrList_free(&list_sentinel);
                 printf("List deleted.\n");
                 break;
             case 12: // Sort the list in lexicographical order
