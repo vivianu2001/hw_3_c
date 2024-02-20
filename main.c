@@ -44,7 +44,7 @@ int main() {
                 break;
             case 7: // Receive a string and print how many times it appears
                 scanf("%s", buffer);
-                printf("%d\n", buffer, StrList_count(&list_sentinel, buffer));
+                printf("%d\n",StrList_count(&list_sentinel, buffer));
                 break;
             case 8: // Receive a string and delete all occurrences from the list
                 scanf("%s", buffer);
