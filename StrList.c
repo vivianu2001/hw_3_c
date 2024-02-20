@@ -7,9 +7,6 @@ StrList* StrList_alloc() {
     // Allocate memory for a new StrList structure
     StrList* newList = (StrList*)malloc(sizeof(StrList));
     if (newList == NULL) {
-        // Handle memory allocation failure
-        // For example, you can print an error message and exit the program
-        fprintf(stderr, "Memory allocation failed in StrList_alloc()\n");
         exit(EXIT_FAILURE);
     }
     // Initialize the newly allocated StrList structure as needed
@@ -44,10 +41,9 @@ size_t StrList_size(const StrList* list) {
 void StrList_insertLast(StrList* list, const char* data) {
     StrList* newNode = (StrList*)malloc(sizeof(StrList));
     if (newNode == NULL) {
-        fprintf(stderr, "Memory allocation failed in StrList_insertLast()\n");
         exit(EXIT_FAILURE);
     }
-    newNode->data = strdup(data);
+    newNode->data = data;
     newNode->next = NULL;
 
     // Traverse the list to find the last node
@@ -69,10 +65,9 @@ void StrList_insertAt(StrList* list, const char* data, int index) {
 
     StrList* newNode = (StrList*)malloc(sizeof(StrList));
     if (newNode == NULL) {
-        fprintf(stderr, "Memory allocation failed in StrList_insertAt()\n");
         exit(EXIT_FAILURE);
     }
-    newNode->data = strdup(data);
+    newNode->data = data;
     newNode->next = NULL;
 
     StrList* current = list; // Start from the sentinel node
@@ -253,7 +248,7 @@ void StrList_sort(StrList* list) {
 
     do {
         swapped = 0;
-        ptr1 = list->next; // Start from the first node after the sentinel
+        ptr1 = list->next; // Start from the first node after the head
 
         while (ptr1->next != lptr) {
             if (strcmp(ptr1->data, ptr1->next->data) > 0) {
