@@ -70,7 +70,7 @@ int main() {
 
             case 11: // Delete the entire list
                 StrList_free(&list_sentinel);
-                printf("List deleted.\n");
+                //printf("List deleted.\n");
                 list_sentinel.next=NULL;
                 break;
 
@@ -81,9 +81,9 @@ int main() {
 
             case 13: // Check whether the list is arranged according to lexicographic order
                 if (StrList_isSorted(&list_sentinel)) {
-                    printf("List is arranged in lexicographic order.\n");
+                    printf("true\n");
                 } else {
-                    printf("List is not arranged in lexicographic order.\n");
+                    printf("false\n");
                 }
                 break;
 
