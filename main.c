@@ -9,7 +9,7 @@ int main() {
     
     int option;
     int index;
-    char buffer[100];
+    char *buffer; // Pointer to dynamically allocated buffer
     int numWords;
     
     while (1) {
@@ -18,14 +18,36 @@ int main() {
             case 1: // Insert strings into the list
                 scanf("%d", &numWords);
                 for (int i = 0; i < numWords; i++) {
-                    scanf("%s", buffer);
+                    buffer = (char*)malloc(sizeof(char) * 100); // Initial allocation
+                    int length = 0;
+                    int capacity = 100;
+                    int c;
+                    while ((c = getchar()) != '\n' && c != EOF) {
+                        if (length + 1 >= capacity) {
+                            capacity *= 2; // Double the capacity
+                            buffer = (char*)realloc(buffer, sizeof(char) * capacity); // Reallocate with doubled capacity
+                        }
+                        buffer[length++] = c;
+                    }
+                    buffer[length] = '\0'; // Null-terminate the string
                     StrList_insertLast(&head, buffer);
                 }
                 break;
 
             case 2: // Insert a string at a certain index
                 scanf("%d", &index);
-                scanf("%s", buffer);
+                buffer = (char*)malloc(sizeof(char) * 100); // Initial allocation
+                int length = 0;
+                int capacity = 100;
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF) {
+                    if (length + 1 >= capacity) {
+                        capacity *= 2; // Double the capacity
+                        buffer = (char*)realloc(buffer, sizeof(char) * capacity); // Reallocate with doubled capacity
+                    }
+                    buffer[length++] = c;
+                }
+                buffer[length] = '\0'; // Null-terminate the string
                 StrList_insertAt(&head, buffer, index);
                 break;
             case 3: // Print the list
@@ -42,12 +64,34 @@ int main() {
                 printf("%d\n", StrList_printLen(&head));
                 break;
             case 7: // Receive a string and print how many times it appears
-                scanf("%s", buffer);
+                buffer = (char*)malloc(sizeof(char) * 100); // Initial allocation
+                length = 0;
+                capacity = 100;
+                while ((c = getchar()) != '\n' && c != EOF) {
+                    if (length + 1 >= capacity) {
+                        capacity *= 2; // Double the capacity
+                        buffer = (char*)realloc(buffer, sizeof(char) * capacity); // Reallocate with doubled capacity
+                    }
+                    buffer[length++] = c;
+                }
+                buffer[length] = '\0'; // Null-terminate the string
                 printf("%d\n", StrList_count(&head, buffer));
+                free(buffer); // Free dynamically allocated memory
                 break;
             case 8: // Receive a string and delete all occurrences from the list
-                scanf("%s", buffer);
+                buffer = (char*)malloc(sizeof(char) * 100); // Initial allocation
+                length = 0;
+                capacity = 100;
+                while ((c = getchar()) != '\n' && c != EOF) {
+                    if (length + 1 >= capacity) {
+                        capacity *= 2; // Double the capacity
+                        buffer = (char*)realloc(buffer, sizeof(char) * capacity); // Reallocate with doubled capacity
+                    }
+                    buffer[length++] = c;
+                }
+                buffer[length] = '\0'; // Null-terminate the string
                 StrList_remove(&head, buffer);
+                free(buffer); // Free dynamically allocated memory
                 break;
             case 9: // Receive an index and delete the corresponding member
                 scanf("%d", &index);
