@@ -32,7 +32,6 @@ int main() {
         scanf(" %d", &option);
         switch(option) {
     case 1: // Insert strings into the list
-        printf("Press 'A' to enter strings into the list: ");
         char choice;
         scanf(" %c", &choice);
         if (choice != 'A') {
