@@ -43,7 +43,14 @@ void StrList_insertLast(StrList* list, const char* data) {
     if (newNode == NULL) {
         exit(EXIT_FAILURE);
     }
-    newNode->data = data;
+    // Allocate memory for newNode->data and copy the content of data into it
+    newNode->data = malloc(strlen(data) + 1); // +1 for null terminator
+    if (newNode->data == NULL) {
+        free(newNode); // Free newNode if memory allocation fails
+        exit(EXIT_FAILURE);
+    }
+    strcpy(newNode->data, data);
+
     newNode->next = NULL;
 
     // Traverse the list to find the last node
@@ -67,10 +74,17 @@ void StrList_insertAt(StrList* list, const char* data, int index) {
     if (newNode == NULL) {
         exit(EXIT_FAILURE);
     }
-    newNode->data = data;
+    // Allocate memory for newNode->data and copy the content of data into it
+    newNode->data = malloc(strlen(data) + 1); // +1 for null terminator
+    if (newNode->data == NULL) {
+        free(newNode); // Free newNode if memory allocation fails
+        exit(EXIT_FAILURE);
+    }
+    strcpy(newNode->data, data);
+
     newNode->next = NULL;
 
-    StrList* current = list; // Start from the sentinel node
+    StrList* current = list; // Start from the head node
     int i;
     for (i = 0; i < index && current->next != NULL; i++) {
         current = current->next;
