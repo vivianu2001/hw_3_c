@@ -110,12 +110,15 @@ char* StrList_firstData(const StrList* list) {
 }
 
 void StrList_print(const StrList* list) {
-    const StrList* current = list->next; // Start from the first actual node
+    const StrList* current = list->next; 
     while (current != NULL) {
-        printf("%s ", current->data);
+        printf("%s", current->data);
         current = current->next;
+        if (current != NULL) {
+            printf(" "); // Print space if there are more nodes
+        }
     }
-    printf("\n");
+    printf("\n"); // Add newline character at the end
 }
 
 
