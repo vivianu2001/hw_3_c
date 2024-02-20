@@ -3,8 +3,6 @@
 #include <string.h>
 #include "StrList.h"
 
-#define BUFFER_SIZE 100000 
-
 int main() {
     StrList head; // Define a sentinel node
     head.next = NULL;
@@ -12,7 +10,6 @@ int main() {
     int option;
     int index;
     char *buffer; // Pointer to dynamically allocated buffer
-    int numWords;
 
     while (1) {
         scanf("%d", &option); // Read the option
@@ -20,22 +17,21 @@ int main() {
 
         switch (option) {
             case 1: // Insert strings into the list
+                int numWords;
                 scanf("%d", &numWords); // Read the number of words
                 getchar(); // Consume newline character
                 
                 for (int i = 0; i < numWords; i++) {
-                    buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE); // Allocate memory for the word
+                    buffer = NULL; // Initialize buffer to NULL
                     int length = 0; // Initialize the length of the word
-                    int capacity = BUFFER_SIZE; // Initialize the capacity of the buffer
+                    //int capacity = 1; // Initialize the capacity of the buffer
+                    
                     int c;
-
                     while ((c = getchar()) != '\n' && c != EOF && c != ' ') {
+                        buffer = realloc(buffer, (length + 1) * sizeof(char)); // Reallocate memory for the word
                         buffer[length++] = c; // Add character to the word
-
-                        // Reallocate memory for the word to accommodate the next character
-                        buffer = (char *)realloc(buffer, sizeof(char) * (++capacity));
                     }
-
+                    buffer = realloc(buffer, (length + 1) * sizeof(char)); // Allocate one extra byte for the null terminator
                     buffer[length] = '\0'; // Null-terminate the string
                     StrList_insertLast(&head, buffer); // Insert the word into the list
                 }
@@ -44,10 +40,17 @@ int main() {
             case 2: // Insert a string at a certain index
                 scanf("%d", &index); // Read the index
                 getchar(); // Consume newline character after reading integer
-                buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE); // Allocate memory for the string
-                //printf("Enter the string to insert: ");
-                fgets(buffer, BUFFER_SIZE, stdin); // Read the entire line
-                strtok(buffer, "\n"); // Remove the newline character
+                buffer = NULL; // Initialize buffer to NULL
+                int length = 0; // Initialize the length of the string
+                //int capacity = 1; // Initialize the capacity of the buffer
+
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF) {
+                    buffer = realloc(buffer, (length + 1) * sizeof(char)); // Reallocate memory for the string
+                    buffer[length++] = c; // Add character to the string
+                }
+                buffer = realloc(buffer, (length + 1) * sizeof(char)); // Allocate one extra byte for the null terminator
+                buffer[length] = '\0'; // Null-terminate the string
                 StrList_insertAt(&head, buffer, index); // Insert the string at the specified index
                 break;
 
@@ -69,18 +72,30 @@ int main() {
                 break;
 
             case 7: // Receive a string and print how many times it appears
-                buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE); // Allocate memory for the string
-                //printf("Enter the string to count: ");
-                fgets(buffer, BUFFER_SIZE, stdin); // Read the entire line
-                strtok(buffer, "\n"); // Remove the newline character
+                buffer = NULL; // Initialize buffer to NULL
+                length = 0; // Initialize the length of the string
+                //capacity = 1; // Initialize the capacity of the buffer
+
+                while ((c = getchar()) != '\n' && c != EOF) {
+                    buffer = realloc(buffer, (length + 1) * sizeof(char)); // Reallocate memory for the string
+                    buffer[length++] = c; // Add character to the string
+                }
+                buffer = realloc(buffer, (length + 1) * sizeof(char)); // Allocate one extra byte for the null terminator
+                buffer[length] = '\0'; // Null-terminate the string
                 printf("%d\n", StrList_count(&head, buffer)); // Print the count of occurrences
                 break;
 
             case 8: // Receive a string and delete all occurrences from the list
-                buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE); // Allocate memory for the string
-                //printf("Enter the string to remove: ");
-                fgets(buffer, BUFFER_SIZE, stdin); // Read the entire line
-                strtok(buffer, "\n"); // Remove the newline character
+                buffer = NULL; // Initialize buffer to NULL
+                length = 0; // Initialize the length of the string
+                //capacity = 1; // Initialize the capacity of the buffer
+
+                while ((c = getchar()) != '\n' && c != EOF) {
+                    buffer = realloc(buffer, (length + 1) * sizeof(char)); // Reallocate memory for the string
+                    buffer[length++] = c; // Add character to the string
+                }
+                buffer = realloc(buffer, (length + 1) * sizeof(char)); // Allocate one extra byte for the null terminator
+                buffer[length] = '\0'; // Null-terminate the string
                 StrList_remove(&head, buffer); // Remove all occurrences of the string from the list
                 break;
 
