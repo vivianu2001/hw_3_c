@@ -170,7 +170,7 @@ void StrList_removeAt(StrList* list, int index) {
         return;
     }
 
-    StrList* current = list;
+    StrList* current = list->next;
     StrList* prev = NULL;
     int i;
     for (i = 0; current != NULL && i < index; i++) {
